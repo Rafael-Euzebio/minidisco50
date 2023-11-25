@@ -14,5 +14,7 @@ play_song.o: ./src/play_song.c
 	gcc $(CFLAGS) -c ./src/play_song.c
 	mv play_song.o obj
 
+install: minidisco50
+	mv ./bin/minidisco50 /usr/local/bin
 
 $(shell mkdir -p $(DIRS))
