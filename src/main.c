@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../include/play_song.h"
 
 int main(int argc, char *argv[])
 {
@@ -6,5 +7,8 @@ int main(int argc, char *argv[])
     {
         printf("Usage: [Path]\n");
         return 1;
+    }
+    else {
+        play_song(argv[1]);
     }
 }
