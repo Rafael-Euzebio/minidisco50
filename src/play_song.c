@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MINIAUDIO_IMPLEMENTATION
-#include "../ext/miniaudio/include/miniaudio.h"
+#include "miniaudio/include/miniaudio.h"
 
 int play_song(char *path)
 {

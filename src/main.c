@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/play_song.h"
+#include "play_song.h"
 
 int main(int argc, char *argv[])
 {

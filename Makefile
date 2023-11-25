@@ -1,4 +1,4 @@
-CFLAGS = -g 
+CFLAGS = -g -I ./include -I ./ext
 DIRS=obj bin
 
 minidisco50: main.o play_song.o
