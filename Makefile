@@ -14,4 +14,7 @@ minidisco50: ./obj/main.o ./obj/play_song.o
 install: minidisco50
 	mv -f ./bin/minidisco50 /usr/local/bin
 
+clean:
+	rm -rf ./obj/*.o ./bin/minidisco50
+
 $(shell mkdir -p $(DIRS))
