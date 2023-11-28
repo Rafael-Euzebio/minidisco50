@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio/include/miniaudio.h"
+#include "input.h"
+#include "actions.h"
 
 void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
 {
@@ -47,11 +49,20 @@ int play_song(char *path)
         return -4;
     }
 
-    printf("Press Enter to quit...");
-    getchar();
-
-    ma_device_uninit(&device);
-    ma_decoder_uninit(&decoder);
-
-    return 0;
+    while(1)
+    {
+        char pressed = check_key_pressed();
+        
+        if (pressed == 'p')
+        {
+            pause_song(&device);
+        }
+        
+        else if (pressed == 'q')
+        {
+            ma_device_uninit(&device);
+            ma_decoder_uninit(&decoder);
+            return 0;
+        }
+    }
 }
