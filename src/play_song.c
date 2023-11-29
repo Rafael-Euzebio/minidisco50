@@ -12,7 +12,7 @@ void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uin
         return;
     }
 
-    ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
+    ma_data_source_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
 
     (void)pInput;
 }
@@ -57,7 +57,10 @@ int play_song(char *path)
         {
             pause_song(&device);
         }
-        
+        else if (pressed == 'l')
+        {
+            loop_song(&decoder);
+        }
         else if (pressed == 'q')
         {
             ma_device_uninit(&device);
