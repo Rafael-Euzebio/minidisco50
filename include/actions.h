@@ -4,3 +4,4 @@
 
 void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
+void restart_song(ma_decoder *decoder);

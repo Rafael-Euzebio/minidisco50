@@ -20,3 +20,8 @@ void loop_song(ma_decoder *decoder)
     g_is_looping = !g_is_looping;
     ma_data_source_set_looping(decoder, g_is_looping);
 }
+
+void restart_song(ma_decoder *decoder)
+{
+    ma_data_source_seek_to_pcm_frame(decoder, 0);
+}

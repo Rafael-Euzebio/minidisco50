@@ -61,6 +61,10 @@ int play_song(char *path)
         {
             loop_song(&decoder);
         }
+        else if (pressed == 'r')
+        {
+            restart_song(&decoder);
+        }
         else if (pressed == 'q')
         {
             ma_device_uninit(&device);
