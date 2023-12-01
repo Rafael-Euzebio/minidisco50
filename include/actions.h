@@ -2,6 +2,9 @@
 #include <stdbool.h>
 #define MINIAUDIO_IMPLEMENTATION
 
+void check_action(int argc, char *arguments[]);
+int play_song(char *song_file);
 void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
+const char *get_filename_ext(const char *filename);

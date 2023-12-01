@@ -17,7 +17,7 @@ void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uin
     (void)pInput;
 }
 
-int play_song(char *path)
+int playback(char *path)
 {
     ma_result result;
     ma_decoder decoder;
@@ -75,3 +75,4 @@ int play_song(char *path)
         }
     }
 }
+
