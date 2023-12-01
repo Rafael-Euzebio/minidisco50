@@ -11,6 +11,7 @@ int play_song(char *song_file);
 void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
+int add_to_playlist(int argc, char *argv[]);
 char *get_filename_ext(const char *filename);
 bool check_valid_song(char *filetype);
 
@@ -21,6 +22,10 @@ void check_action(int argc, char *argv[])
     
     if (flag_indicator == option[0])
     {
+        if (strcmp(option, "-a") == 0 || strcmp(option, "--add") == 0)
+        {
+            add_to_playlist(argc, argv);
+        }
     }
     else
     {
@@ -64,6 +69,31 @@ void loop_song(ma_decoder *decoder)
 void restart_song(ma_decoder *decoder)
 {
     ma_data_source_seek_to_pcm_frame(decoder, 0);
+}
+
+
+int add_to_playlist(int argc, char *argv[])
+{
+    char *output_file_extension = get_filename_ext(argv[argc - 1]);
+
+    if (strcmp(output_file_extension, "m3u") == 0)
+    {
+        char *playlist_filename = argv[argc - 1];
+        FILE *file_stream;
+
+        file_stream = fopen(playlist_filename, "a");
+
+        for (int i = 2; i < argc - 1; i++)
+        {
+            char *path = realpath(argv[i], NULL);
+            fprintf(file_stream, "%s\n", path); 
+        }
+    }
+    else {
+        printf("Playlist file must be a '.m3u' file\n");
+        return 1;
+    }
+     
 }
 
 char *get_filename_ext(const char *filename) {
