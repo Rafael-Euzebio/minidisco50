@@ -1,5 +1,6 @@
-#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include "playback.h"
 #include "miniaudio/include/miniaudio.h"
@@ -11,6 +12,7 @@ void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
 char *get_filename_ext(const char *filename);
+bool check_valid_song(char *filetype);
 
 void check_action(int argc, char *argv[])
 {
@@ -28,19 +30,14 @@ void check_action(int argc, char *argv[])
 
 int play_song(char *song_file)
 {
-    char *song_file_extension = get_filename_ext(song_file);
+    char *filetype = get_filename_ext(song_file);
 
-    int wav_file = strcmp(song_file_extension, "wav");
-    int mp3_file = strcmp(song_file_extension, "mp3");
-    int flac_file = strcmp(song_file_extension, "flac");
-
-    if (wav_file == 0 || mp3_file == 0 || flac_file == 0)
+    if (check_valid_song(filetype) == true)
     {
         playback(song_file);
     }
     else
     {
-        printf("Incompatible file type\n");
         return 1;
     }
 }
@@ -75,3 +72,19 @@ char *get_filename_ext(const char *filename) {
     return dot + 1;
 }
 
+
+bool check_valid_song(char *filetype) {
+    int wav_file = strcmp(filetype, "wav");
+    int mp3_file = strcmp(filetype, "mp3");
+    int flac_file = strcmp(filetype, "flac");
+
+    if (wav_file == 0 || mp3_file == 0 || flac_file == 0)
+    {
+        return true;
+    }
+    else
+    {
+        printf("Incompatible file type\n");
+        return false;
+    }
+}
