@@ -54,8 +54,6 @@ int playback(char *path)
         return -4;
     }
 
-    printf("[p]ause - [l]oop - [r]estart - [q]uit\n");
-
     while(1)
     {
         char pressed = check_key_pressed();
