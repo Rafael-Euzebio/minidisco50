@@ -5,6 +5,8 @@
 #include "input.h"
 #include "actions.h"
 
+bool g_reached_end = false;
+
 void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
 {
     ma_decoder* pDecoder = (ma_decoder*)pDevice->pUserData;
@@ -12,7 +14,10 @@ void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uin
         return;
     }
 
-    ma_data_source_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
+    if (ma_data_source_read_pcm_frames(pDecoder, pOutput, frameCount, NULL) > frameCount)
+    {
+        g_reached_end = true;
+    }
 
     (void)pInput;
 }
@@ -71,6 +76,13 @@ int playback(char *path)
         {
             ma_device_uninit(&device);
             ma_decoder_uninit(&decoder);
+            return 0;
+        }
+        else if(g_reached_end == true)
+        {
+            ma_device_uninit(&device);
+            ma_decoder_uninit(&decoder);
+            g_reached_end = false;
             return 0;
         }
     }
