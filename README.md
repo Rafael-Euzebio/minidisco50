@@ -28,12 +28,20 @@ Where `Path` is the exact path to your song file
 | `p`  | Pause playback |
 | `l`  | Toggle loop|
 | `r`  | Restart song|
+| `n`  | Play next song from playlist|
 | `q`  | Quit|
+
+## Playlists
+minidisco50 can handle playlists in .m3u files
+
+A playlist can be created or updated with `./minidisco50 [-a or --add] [songs] [playlist.m3u]`  
+It can be read with `./minidisco50 [-r or --read-playlist] [playlist.m3u]`
+
 
 ## Roadmap
 
 - [x] Playback control (Play, Pause, Loop and Restart)
-- [ ] Read and write to playlists in `.m3u` files
+- [x] Read and write to playlists in `.m3u` files
 - [ ] Song queue (Play all songs in a folder)
 - [ ] Search for songs recursively with partial filename
 
