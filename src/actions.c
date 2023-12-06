@@ -15,6 +15,8 @@ int add_to_playlist(int argc, char *argv[]);
 char *get_filename_ext(const char *filename);
 bool check_valid_song(char *filetype);
 
+bool g_ui_printed = false;
+
 void check_action(int argc, char *argv[])
 {
     char flag_indicator = '-';
@@ -36,6 +38,11 @@ void check_action(int argc, char *argv[])
 
 int play_song(char *song_file)
 {
+    if (g_ui_printed == false)
+    {
+        printf("[p]ause - [l]oop - [r]estart - [q]uit\n");
+        g_ui_printed = true;
+    }
     char *filetype = get_filename_ext(song_file);
 
     if (check_valid_song(filetype) == true)
