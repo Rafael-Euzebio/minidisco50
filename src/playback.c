@@ -68,6 +68,11 @@ int playback(char *path)
                 restart_song(&decoder);
                 break;
 
+            case 'n':
+                ma_decoder_uninit(&decoder);
+                ma_device_uninit(&device);
+                return 0;
+
             case 'l':
                 loop_song(&decoder);
                 break;
@@ -76,7 +81,8 @@ int playback(char *path)
                 exit(EXIT_SUCCESS);
 
         }
-        else if(g_reached_end == true)
+
+        if(g_reached_end == true)
         {
             ma_device_uninit(&device);
             ma_decoder_uninit(&decoder);

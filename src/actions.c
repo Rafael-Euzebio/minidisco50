@@ -44,7 +44,7 @@ int play_song(char *song_file)
 {
     if (g_ui_printed == false)
     {
-        printf("[p]ause - [l]oop - [r]estart - [q]uit\n");
+        printf("[p]ause - [l]oop - [r]estart - [n]ext - [q]uit\n");
         g_ui_printed = true;
     }
     char *filetype = get_filename_ext(song_file);
