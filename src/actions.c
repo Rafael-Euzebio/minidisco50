@@ -12,6 +12,7 @@ void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
 int add_to_playlist(int argc, char *argv[]);
+int read_playlist(char *path);
 char *get_filename_ext(const char *filename);
 bool check_valid_song(char *filetype);
 
@@ -27,6 +28,9 @@ void check_action(int argc, char *argv[])
         if (strcmp(option, "-a") == 0 || strcmp(option, "--add") == 0)
         {
             add_to_playlist(argc, argv);
+        }
+        else if (strcmp(option, "-r") == 0 || strcmp(option, "--read-playlist") == 0) {
+            read_playlist(argv[2]);
         }
     }
     else
@@ -71,6 +75,7 @@ bool g_is_looping = false;
 void loop_song(ma_decoder *decoder)
 {
     g_is_looping = !g_is_looping;
+
     if (g_is_looping == true)
     {
         printf("Looping: True\n");
@@ -110,6 +115,61 @@ int add_to_playlist(int argc, char *argv[])
         return 1;
     }
      
+}
+
+int read_playlist(char *path)
+{
+    char *file_extension = get_filename_ext(path);
+
+    if (strcmp(file_extension, "m3u") == 0)
+    {
+        FILE *file_stream = fopen(path, "r");
+
+        if (file_stream == NULL)
+        {
+            perror("fopen() failed");
+            return 1;
+        }
+
+        int count = 0;
+        char buffer[4096]; 
+        char **songs;
+
+        while (fgets(buffer, sizeof(buffer), file_stream))
+        {
+            if (count == 0)
+            {
+                songs = malloc(1 * sizeof(char *));
+                songs[count] = malloc(sizeof(char) * strlen(buffer) + 1);
+            }
+            else
+            {
+                songs = realloc(songs, (count + 1) * sizeof(char *));
+                songs[count] = malloc(sizeof(char) * (strlen(buffer) + 1));
+            }
+
+            strcpy(songs[count], buffer);
+
+            int len = strlen(songs[count]);
+            if (len > 0 && songs[count][len-1] == '\n')
+            {
+                songs[count][len-1] = '\0';
+            }
+
+            play_song(songs[count]);
+            count++;
+        }
+
+        for (int i = 0; i < count; i++) {
+            free(songs[i]);
+        }
+
+        free(songs);
+        fclose(file_stream);
+        return 0;
+    }
+    
+    return 1;
 }
 
 char *get_filename_ext(const char *filename) {
