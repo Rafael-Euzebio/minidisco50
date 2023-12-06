@@ -36,5 +36,4 @@ Where `Path` is the exact path to your song file
 - [ ] Read and write to playlists in `.m3u` files
 - [ ] Song queue (Play all songs in a folder)
 - [ ] Search for songs recursively with partial filename
-- [ ] Refactor UI with `ncurses`
 
