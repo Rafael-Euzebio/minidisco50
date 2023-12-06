@@ -71,6 +71,14 @@ bool g_is_looping = false;
 void loop_song(ma_decoder *decoder)
 {
     g_is_looping = !g_is_looping;
+    if (g_is_looping == true)
+    {
+        printf("Looping: True\n");
+    }
+    else {
+
+        printf("Looping: False\n");
+    }
     ma_data_source_set_looping(decoder, g_is_looping);
 }
 
