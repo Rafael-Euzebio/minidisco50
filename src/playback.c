@@ -58,23 +58,23 @@ int playback(char *path)
     {
         char pressed = check_key_pressed();
         
-        if (pressed == 'p')
-        {
-            pause_song(&device);
-        }
-        else if (pressed == 'l')
-        {
-            loop_song(&decoder);
-        }
-        else if (pressed == 'r')
-        {
-            restart_song(&decoder);
-        }
-        else if (pressed == 'q')
-        {
-            ma_device_uninit(&device);
-            ma_decoder_uninit(&decoder);
-            return 0;
+        switch (pressed) {
+
+            case 'p':
+                pause_song(&device);
+                break;
+
+            case 'r':
+                restart_song(&decoder);
+                break;
+
+            case 'l':
+                loop_song(&decoder);
+                break;
+
+            case 'q':
+                exit(EXIT_SUCCESS);
+
         }
         else if(g_reached_end == true)
         {
