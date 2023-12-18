@@ -1,5 +1,10 @@
 # Changelog
 
+
+## 2.1.1 (2023-12-18)
+### Bugfixes
+- Fixed song actions (ui) being printed twice
+
 ## 2.1.0 (2023-12-18)
 ### Feature
 - Read folders
