@@ -46,6 +46,7 @@ minidisco50 can play all song files in a folder (as long as they are `.wav`, `.o
 
 - [x] Playback control (Play, Pause, Loop and Restart)
 - [x] Read and write to playlists in `.m3u` files
-- [ ] Song queue (Play all songs in a folder)
-- [ ] Search for songs recursively with partial filename
+- [x] Song queue (Play all songs in a folder)
+- [ ] ~~Search for songs recursively with partial filename~~
+    - As of 2023-12-12 it was decided this feature will **not** be implemented
 
