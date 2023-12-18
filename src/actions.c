@@ -40,7 +40,6 @@ void check_action(int argc, char *argv[])
     }
     else
     {
-        printf("[p]ause - [l]oop - [r]estart - [q]uit\n");
         play_song(argv[1]);
     }
 }
