@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <dirent.h>
 #include "playback.h"
 #include "miniaudio/include/miniaudio.h"
 #define MINIAUDIO_IMPLEMENTATION
@@ -13,6 +14,7 @@ void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
 int add_to_playlist(int argc, char *argv[]);
 void read_playlist(char *path);
+void read_folder(char *path);
 char *get_filename_ext(const char *filename);
 bool check_valid_song(char *filetype);
 
@@ -31,6 +33,9 @@ void check_action(int argc, char *argv[])
         }
         else if (strcmp(option, "-r") == 0 || strcmp(option, "--read-playlist") == 0) {
             read_playlist(argv[2]);
+        }
+        else if (strcmp(option, "-f") == 0 || strcmp(option, "--folder") == 0) {
+            read_folder(argv[2]);
         }
     }
     else
@@ -203,6 +208,54 @@ void read_playlist(char *path)
     
     printf("Playlist file must be a .m3u file\n");
     return;
+}
+
+void read_folder(char *path)
+{
+    struct dirent *de;  // Pointer for directory entry 
+
+  
+    // opendir() returns a pointer of DIR type.  
+    DIR *dr = opendir(path); 
+  
+    if (dr == NULL)  // opendir returns NULL if couldn't open directory 
+    { 
+        printf("Could not open current directory" ); 
+        return; 
+    } 
+
+    int count = 0;
+    char **songs;
+  
+    // Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
+    // for readdir() 
+    while ((de = readdir(dr)) != NULL) 
+    {
+        char *file = de -> d_name;
+        char *filetype = get_filename_ext(file);
+
+        if (check_valid_song(filetype) == true)
+        {
+            char *full_path = malloc(((strlen(path) +1)  * sizeof(char)) + (strlen(file) * sizeof(char)));
+
+            if (full_path == NULL)
+            {
+                printf("Failed to allocate memory\n");
+                abort();
+            }
+            strcpy(full_path, path);
+
+            if (path[strlen(path)] != '/')
+            {
+                strcat(full_path, "/");
+            }
+
+            strcat(full_path, file);
+            play_song(full_path);
+        }
+    }
+  
+    closedir(dr);     
 }
 
 char *get_filename_ext(const char *filename) {
