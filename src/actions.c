@@ -12,7 +12,7 @@ void pause_song(ma_device *device);
 void loop_song(ma_decoder *decoder);
 void restart_song(ma_decoder *decoder);
 int add_to_playlist(int argc, char *argv[]);
-int read_playlist(char *path);
+void read_playlist(char *path);
 char *get_filename_ext(const char *filename);
 bool check_valid_song(char *filetype);
 
@@ -117,7 +117,7 @@ int add_to_playlist(int argc, char *argv[])
      
 }
 
-int read_playlist(char *path)
+void read_playlist(char *path)
 {
     char *file_extension = get_filename_ext(path);
 
@@ -166,10 +166,12 @@ int read_playlist(char *path)
 
         free(songs);
         fclose(file_stream);
-        return 0;
+
+        return;
     }
     
-    return 1;
+    printf("Playlist file must be a .m3u file\n");
+    return;
 }
 
 char *get_filename_ext(const char *filename) {
