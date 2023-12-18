@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0 (2023-12-18)
+### Feature
+- Read folders
+    - Play all songs within a folder `./minidisco (-f or --folder) [path]`
+        - This feature does **not** works recursively
+
+## Minor Fixes 
+- Functions which makes use of dynamic memory allocation now check for errors on allocating memory
+
 ## 2.0.0 (2023-12-06)
 ### Feature
 - Playlists
