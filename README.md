@@ -37,6 +37,10 @@ minidisco50 can handle playlists in .m3u files
 A playlist can be created or updated with `./minidisco50 [-a or --add] [songs] [playlist.m3u]`  
 It can be read with `./minidisco50 [-r or --read-playlist] [playlist.m3u]`
 
+## Folders
+minidisco50 can play all song files in a folder (as long as they are `.wav`, `.ogg` or `.flac` files)
+
+`minidisco50 (-f or --folder) [path]`
 
 ## Roadmap
 
