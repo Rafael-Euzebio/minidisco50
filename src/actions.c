@@ -104,6 +104,13 @@ int add_to_playlist(int argc, char *argv[])
 
         file_stream = fopen(playlist_filename, "a");
 
+        if (file_stream == NULL)
+        {
+            printf("Failed to open file\n");
+            abort();
+
+        }
+
         for (int i = 2; i < argc - 1; i++)
         {
             char *path = realpath(argv[i], NULL);
@@ -127,8 +134,8 @@ void read_playlist(char *path)
 
         if (file_stream == NULL)
         {
-            perror("fopen() failed");
-            return 1;
+            perror("Failed to open file\n");
+            abort();
         }
 
         int count = 0;
@@ -140,12 +147,36 @@ void read_playlist(char *path)
             if (count == 0)
             {
                 songs = malloc(1 * sizeof(char *));
+                if (songs == NULL)
+                {
+                    printf("Failed to allocate memory\n");
+                    abort();
+                }
                 songs[count] = malloc(sizeof(char) * strlen(buffer) + 1);
+
+                if (songs[count] == NULL)
+                {
+                    printf("Failed to allocate memory\n");
+                    abort();
+                }
             }
             else
             {
                 songs = realloc(songs, (count + 1) * sizeof(char *));
+
+                if (songs == NULL)
+                {
+                    printf("Failed to allocate memory\n");
+                    abort();
+                }
+
                 songs[count] = malloc(sizeof(char) * (strlen(buffer) + 1));
+
+                if (songs == NULL)
+                {
+                    printf("Failed to allocate memory\n");
+                    abort();
+                }
             }
 
             strcpy(songs[count], buffer);
@@ -192,7 +223,6 @@ bool check_valid_song(char *filetype) {
     }
     else
     {
-        printf("Incompatible file type\n");
         return false;
     }
 }
