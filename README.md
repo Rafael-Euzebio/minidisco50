@@ -1,4 +1,9 @@
 # minidisco50
+
+#### Video Demo: https://youtu.be/SSHuR9TGqjU
+
+#### Description:
+
 My final project for CS50x in 2023, a terminal music player in C.
 
 ## Installation
